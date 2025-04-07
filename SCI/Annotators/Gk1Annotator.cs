@@ -1,0 +1,231 @@
+using System;
+using System.Collections.Generic;
+
+namespace SCI.Annotators
+{
+    class Gk1Annotator : GameAnnotator
+    {
+        public override void Run()
+        {
+            RunEarly();
+            GlobalRenamer.Run(Game, globals);
+            ExportRenamer.Run(Game, exports);
+            VerbAnnotator.Run(Game, verbs);
+            InventoryAnnotator.Run(Game, items);
+            RunLate();
+
+            Gk1TellerAnnotator.Run(Game, MessageFinder);
+        }
+
+        static Dictionary<int, string> globals = new Dictionary<int, string>
+        {
+            {  123, "gDay" },
+        };
+
+        static IReadOnlyDictionary<Tuple<int, int>, string> exports = new Dictionary<Tuple<int, int>, string>()
+        {
+            { Tuple.Create(13, 0), "IsFlag" },
+            { Tuple.Create(13, 1), "SetFlag" },
+            { Tuple.Create(13, 2), "ClearFlag" },
+            { Tuple.Create(13, 3), "Face" },
+            { Tuple.Create(13, 4), "Fade" },
+            { Tuple.Create(13, 5), "SkipSceneDialog" },
+
+            // a duplicate set of flag functions.
+            // i'm naming the same even though that loses the distinction,
+            // because who cares, as long as sci companion doesn't keel over.
+            { Tuple.Create(50, 1), "IsNotFlag" },
+            { Tuple.Create(50, 2), "IsFlag" },
+            { Tuple.Create(50, 3), "SetFlag" },
+            { Tuple.Create(50, 4), "ClearFlag" },
+
+            { Tuple.Create(50, 5), "IsInterrogationFlag" },
+            { Tuple.Create(50, 6), "SetInterrogationFlag" },
+            { Tuple.Create(50, 7), "ClearInterrogationFlag" },
+            { Tuple.Create(50, 8), "IsNotInterrogationFlag" },
+        };
+
+        static Dictionary<int, string> verbs = new Dictionary<int, string>
+        {
+            { 6, "Open" },
+            { 7, "Look" },
+            { 8, "Operate" },
+            { 9, "Move" },
+            { 10, "Ask" },
+            { 11, "Talk" },
+            { 12, "Pickup" },
+            { 13, "Walk" },
+
+            { 3, "tweezers" },
+            { 4, "magGlass" },
+            { 5, "giftCert" },
+            { 14, "ritLetter" },
+            { 15, "sketchBook" },
+            { 16, "reconVeve_" },
+            { 17, "murderPhoto" },
+            { 18, "drumBook" },
+            { 19, "hartNotes" },
+            { 20, "lakeScale" },
+            { 21, "snakeSkin_" },
+            { 22, "fortScale_" },
+            { 23, "sLakePatter" },
+            { 24, "veveCopy" },
+            { 26, "musScale" },
+            { 28, "clay" },
+            { 29, "wallet" },
+            { 30, "tatooTrace" },
+            { 31, "crocMask" },
+            { 32, "hundred" },
+            { 33, "luckyDog_" },
+            { 34, "lostDrawing" },
+            { 35, "veil" },
+            { 36, "wolfLetter" },
+            { 37, "guntJournal" },
+            { 38, "wolfPhone" },
+            { 39, "ritPhoto_" },
+            { 40, "VoodooCode1" },
+            { 41, "news1810" },
+            { 42, "braceRep_" },
+            { 43, "braceMold_" },
+            { 44, "mosKey" },
+            { 45, "tracker" },
+            { 46, "oil" },
+            { 48, "policeVeve_" },
+            { 49, "phonePage" },
+            { 50, "gradPhoto" },
+            { 51, "twoScales" },
+            { 56, "keyEnvelope" },
+            { 59, "sVoodooCode" },
+            { 60, "signalDev_ or signalDev2_" },
+            { 61, "mosLetter" },
+            { 64, "collar_" },
+            { 66, "brick" },
+            { 67, "phoEnvelope" },
+            { 72, "hair_gel" },
+            { 73, "disguise" },
+            { 74, "shirt" },
+            { 76, "rod" },
+            { 79, "badge" },
+            { 84, "bookSnkMnd" },
+            { 86, "master_card" },
+            { 89, "tile1" },
+            { 90, "tile2" },
+            { 91, "tile3" },
+            { 92, "tile4" },
+            { 93, "tile5" },
+            { 94, "tile6" },
+            { 96, "tile8" },
+            { 97, "tile9" },
+            { 98, "tile10" },
+            { 99, "tile11" },
+            { 101, "knife" },
+            { 104, "chamPot" },
+            { 105, "scroll" },
+            { 106, "salt" },
+            { 107, "scissors" },
+            { 108, "wolfKey" },
+            { 114, "WolfMask" },
+            { 115, "lotsCash" },
+            { 116, "BoarMask" },
+            { 120, "WolfGuise" },
+            { 121, "BoarGuise" },
+            { 122, "BoarRobe or WolfRobe" },
+            { 123, "hounfourKey" },
+            { 124, "talisman" },
+            { 125, "bones" },
+            { 129, "lit_flash" },
+            { 130, "records or bookTribe" },
+
+            // invRead
+            { 58, "invRead" },
+            { 68, "invHelp" },
+
+            { 88, "tile" }, // code converts all tile# verbs to this value
+        };
+
+        static string[] items =
+        {
+            "phoEnvelope",
+            "murderPhoto",
+            "gradPhoto",
+            "tweezers",
+            "magGlass",
+            "giftCert",
+            "sketchBook",
+            "phonePage",
+            "wolfPhone",
+            "news1810",
+            "guntJournal",
+            "wolfLetter",
+            "ritLetter",
+            "clay",
+            "drumBook",
+            "veveCopy",
+            "policeVeve",
+            "badge",
+            "tracker",
+            "signalDev",
+            "signalDev2",
+            "crocMask",
+            "oil",
+            "musScale",
+            "lakeScale",
+            "twoScales",
+            "tatooTrace",
+            "keyEnvelope",
+            "mosKey",
+            "mosLetter",
+            "hundred",
+            "sLakePatter",
+            "VoodooCode1",
+            "sVoodooCode",
+            "ritPhoto",
+            "lostDrawing",
+            "luckyDog",
+            "snakeSkin",
+            "reconVeve",
+            "collar",
+            "braceMold",
+            "braceRep",
+            "veil",
+            "fortScale",
+            "brick",
+            "hartNotes",
+            "hair_gel",
+            "shirt",
+            "disguise",
+            "tile1",
+            "tile3",
+            "tile2",
+            "tile5",
+            "tile4",
+            "records",
+            "tile6",
+            "tile9",
+            "tile8",
+            "tile11",
+            "tile10",
+            "rod",
+            "chamPot",
+            "lotsCash",
+            "scroll",
+            "knife",
+            "salt",
+            "scissors",
+            "bookSnkMnd",
+            "wolfKey",
+            "talisman",
+            "bones",
+            "master_card",
+            "wallet",
+            "lit_flash",
+            "BoarMask",
+            "BoarRobe",
+            "WolfMask",
+            "WolfRobe",
+            "BoarGuise",
+            "WolfGuise",
+            "hounfourKey",
+        };
+    }
+}

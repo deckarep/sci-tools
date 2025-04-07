@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Snuffer", "Snuffer\Snuffer.csproj", "{76274BA0-B651-4472-8C66-0B98443DAB27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SCI", "SCI\SCI.csproj", "{787FFF4A-4FBD-4157-944F-F360ECB2D4A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{787FFF4A-4FBD-4157-944F-F360ECB2D4A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{787FFF4A-4FBD-4157-944F-F360ECB2D4A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{787FFF4A-4FBD-4157-944F-F360ECB2D4A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{787FFF4A-4FBD-4157-944F-F360ECB2D4A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76274BA0-B651-4472-8C66-0B98443DAB27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76274BA0-B651-4472-8C66-0B98443DAB27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76274BA0-B651-4472-8C66-0B98443DAB27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76274BA0-B651-4472-8C66-0B98443DAB27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

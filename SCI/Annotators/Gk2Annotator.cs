@@ -1,0 +1,243 @@
+using System;
+using System.Collections.Generic;
+
+namespace SCI.Annotators
+{
+    class Gk2Annotator : GameAnnotator
+    {
+        public override void Run()
+        {
+            bool demo = (Game.GetExport(0, 0) == "GK2Demo");
+            RunEarly();
+            GlobalRenamer.Run(Game, globals);
+            ExportRenamer.Run(Game, demo ? demoExports : exports);
+            VerbAnnotator.Run(Game, verbs);
+            InventoryAnnotator.Run(Game, items);
+            RunLate();
+
+            Gk2RoomAnnotator.Run(Game);
+            Gk2RoomTitleAnnotator.Run(Game, MessageFinder);
+            Gk2TopicAnnotator.Run(Game, MessageFinder);
+        }
+
+        static IReadOnlyDictionary<int, string> globals = new Dictionary<int, string>
+        {
+            { 108, "gDebugging" },
+            { 115, "gChapter" },
+
+            { 146, "gSoundManager" },
+        };
+
+        static IReadOnlyDictionary<Tuple<int, int>, string> exports = new Dictionary<Tuple<int, int>, string>()
+        {
+            { Tuple.Create(11, 0), "IsFlag" },
+            { Tuple.Create(11, 1), "SetFlag" },
+            { Tuple.Create(11, 2), "ClearFlag" },
+
+            { Tuple.Create(11, 5), "StopRobot" },
+            { Tuple.Create(11, 6), "PlayRobot" },
+            { Tuple.Create(11, 7), "PlayScene" },
+            { Tuple.Create(11, 10), "PlayVMDFile" },
+            { Tuple.Create(11, 11), "PrintDebugSceneText" },
+            { Tuple.Create(11, 14), "InitChapter" },
+
+            { Tuple.Create(51, 0), "PlayChapter1Scene" },
+            { Tuple.Create(52, 0), "PlayChapter2Scene" },
+            { Tuple.Create(53, 0), "PlayChapter3Scene" },
+            { Tuple.Create(54, 0), "PlayChapter4Scene" },
+            { Tuple.Create(55, 0), "PlayChapter5Scene" },
+            { Tuple.Create(56, 0), "PlayChapter6Scene" },
+        };
+
+        static IReadOnlyDictionary<Tuple<int, int>, string> demoExports = new Dictionary<Tuple<int, int>, string>()
+        {
+            { Tuple.Create(0, 1), "SetFlag" },
+            { Tuple.Create(0, 2), "ClearFlag" },
+            { Tuple.Create(0, 3), "IsFlag" },
+        };
+
+        static IReadOnlyDictionary<int, string> verbs = new Dictionary<int, string>
+        {
+            { 62, "Do" },
+
+            { 6, "invBarclayCard" },
+            { 7, "invUbergrauLetter" },
+            { 8, "invTalisman" },
+            { 9, "invGracePackage1" },
+            { 10, "invGraceWallet" },
+            { 15, "invDiaryTranslation" },
+            { 17, "invGabeWallet" },
+            { 21, "invMatches" },
+            { 22, "invRope" },
+            { 23, "invRitterDagger" },
+            { 24, "invLantern" },
+            { 30, "invPillowcase" },
+            { 31, "invDove" },
+            { 33, "invBanner" },
+            { 34, "invOperaGlasses" },
+            { 35, "invRollOfTape" },
+            { 36, "invPowder" },
+            { 37, "invTheaterKeys" },
+            { 39, "invXaverKeys" },
+            { 40, "invTapeRecorder" },
+            { 41, "invEvidenceReport" },
+            { 44, "invAddressedPackage" },
+            { 46, "invLily" },
+            { 47, "invGrosPhoneNumber" },
+            { 48, "invGabeCards" },
+            { 49, "invGraceLetter1" },
+            { 50, "invGraceLetter2" },
+            { 51, "invGraceLetter3" },
+            { 52, "invHuberKeys" },
+            { 53, "invGabeEnvelope1" },
+            { 54, "invGabeEnvelope2" },
+            { 56, "invFarmHair" },
+            { 57, "invZooHair" },
+            { 58, "invPawPrintCast" },
+            { 59, "invKlingmannReceipt" },
+            { 60, "invRitterPapers" },
+            { 61, "invSpliceTape" },
+            { 63, "invGabeLetter1" },
+            { 64, "invGabeLetter2" },
+            { 65, "invScrewdriver" },
+            { 66, "invLibraryKey" },
+            { 67, "invWerewolfBook" },
+            { 68, "invVictorJournal" },
+            { 69, "invChristianJournal" },
+            { 70, "invLudwigLetter" },
+            { 72, "invChurchFile" },
+            { 73, "invVonGlowerCard" },
+            { 74, "invCuckooClock" },
+            { 75, "invMagazine" },
+            { 76, "invFourRoses" },
+            { 77, "invCastleTicket" },
+            { 78, "invTourTapeDeck" },
+            { 80, "invLudwigBio" },
+            { 81, "invDallmeierNote" },
+            { 82, "invChaphillNote" },
+            { 83, "invGraceEnvelope3" },
+            { 84, "invManuscript" },
+            { 86, "invLedgerPage" },
+            { 87, "invWurst" },
+            { 88, "invGrossbergLetter" },
+            { 89, "invShears" },
+            { 90, "invWolfTags" },
+            { 92, "invChandelierDiagram" },
+            { 96, "invVonGlowerLetter" },
+            { 97, "invOperaAct1" },
+            { 98, "invOperaAct2" },
+            { 99, "invOperaAct3" },
+            { 100, "invBottleOfWater" },
+            { 101, "invSilverHeart" },
+            { 102, "invPriestCard" },
+            { 103, "invOperaProgram" },
+            { 104, "invSeatingChart" },
+            { 105, "invTheaterRope" },
+            { 106, "invNotebookPen" },
+            { 108, "invMayorNote" },
+            { 111, "invPitcher" },
+            { 113, "invCarKeys" },
+            { 114, "invDornMoney" },
+            { 115, "invBlankTapes" },
+            { 116, "invMagWithRecorder" },
+            { 117, "invVonZellTape" },
+            { 128, "invCostume" },
+            { 131, "invToDoList" },
+            { 132, "invRoll" },
+            { 133, "invGabeNotebook" },
+            { 134, "invLitLantern" },
+            { 135, "invGun" },
+        };
+
+        static string[] items =
+        {
+            "invGabeCards",
+            "invGraceLetter1",
+            "invUbergrauLetter",
+            "invRitterDagger",
+            "invGabeWallet",
+            "invTalisman",
+            "invTapeRecorder",
+            "invBlankTapes",
+            "invHuberKeys",
+            "invGabeEnvelope1",
+            "invFarmHair",
+            "invPawPrintCast",
+            "invZooHair",
+            "invKlingmannReceipt",
+            "invRitterPapers",
+            "invSpliceTape",
+            "invEvidenceReport",
+            "invBarclayCard",
+            "invNotebookPen",
+            "invGraceWallet",
+            "invGabeLetter1",
+            "invScrewdriver",
+            "invLibraryKey",
+            "invWerewolfBook",
+            "invVictorJournal",
+            "invChristianJournal",
+            "invLudwigLetter",
+            "invGracePackage1",
+            "invMayorNote",
+            "invChurchFile",
+            "invVonGlowerCard",
+            "invGabeEnvelope2",
+            "invCuckooClock",
+            "invXaverKeys",
+            "invGrosPhoneNumber",
+            "invMagazine",
+            "invGraceLetter2",
+            "invGabeLetter2",
+            "invFourRoses",
+            "invTourTapeDeck",
+            "invLudwigBio",
+            "invDallmeierNote",
+            "invChaphillNote",
+            "invGraceEnvelope3",
+            "invDiaryTranslation",
+            "invLily",
+            "invDornMoney",
+            "invGraceLetter3",
+            "invLedgerPage",
+            "invWurst",
+            "invLantern",
+            "invMatches",
+            "invGrossbergLetter",
+            "invShears",
+            "invRope",
+            "invWolfTags",
+            "invChandelierDiagram",
+            "invVonGlowerLetter",
+            "invOperaAct3",
+            "invOperaAct2",
+            "invOperaAct1",
+            "invPillowcase",
+            "invBottleOfWater",
+            "invSilverHeart",
+            "invPriestCard",
+            "invOperaProgram",
+            "invSeatingChart",
+            "invTheaterKeys",
+            "invBanner",
+            "invTheaterRope",
+            "invOperaGlasses",
+            "invToDoList",
+            "invCarKeys",
+            "invPitcher",
+            "invCastleTicket",
+            "invRoll",
+            "invMagWithRecorder",
+            "invDove",
+            "invLitLantern",
+            "invGabeNotebook",
+            "invAddressedPackage",
+            "invGun",
+            "invVonZellTape",
+            "invRollOfTape",
+            "invPowder",
+            "invCostume",
+            "invManuscript",
+        };
+    }
+}
