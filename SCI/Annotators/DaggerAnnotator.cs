@@ -17,6 +17,7 @@ namespace SCI.Annotators
             DaggerClueAnnotator.Run(Game, MessageFinder);
             DaggerTimeAnnotator.Run(Game);
             DaggerDeathAnnotator.Run(Game, MessageFinder);
+            DaggerSoundAnnotator.Run(Game);
         }
 
         static Dictionary<int, string> globals = new Dictionary<int, string>
