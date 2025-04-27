@@ -13,7 +13,7 @@ using System;
 // 1. Writes a string to the output.
 // 2. Adds a new string to the end of the LZW table comprised of the string
 //    that was just written, plus the subsequent byte that will appear in
-//    the output, even though we don't know yet know what that byte will be.
+//    the output, even though we don't yet know what that byte will be.
 //    * If the LZW table is full, no new strings are added until it is reset.
 //
 // The LZW table contains strings defined by offsets and lengths in the output

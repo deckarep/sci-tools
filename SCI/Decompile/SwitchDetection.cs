@@ -424,8 +424,8 @@ namespace SCI.Decompile
     // It's only used by switch detection, also written early on, and if
     // I had to do it again I would try to do switch detection differently.
     //
-    // I that having a thing to traverse instructions in reverse to identify and
-    // resolve their dependencies was going to be critical to decompiling.
+    // I thought having a thing to traverse instructions in reverse to identify
+    // and resolve their dependencies was going to be critical to decompiling.
     // Instead, I went the other direction. This class used to be huge, now only
     // the fragment used by switch detection remains. That's why it hides here.
 
