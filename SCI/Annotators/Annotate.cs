@@ -87,7 +87,7 @@ namespace SCI.Annotators
                 { GameId.Rama, typeof(RamaAnnotator) },
                 { GameId.Realm, typeof(RealmAnnotator) },
                 { GameId.Shivers, typeof(ShiversAnnotator) },
-                // Slater
+                { GameId.Slater, typeof(SlaterAnnotator) },
                 { GameId.Sq1, typeof(Sq1Annotator) },
                 { GameId.Sq3, typeof(Sq3Annotator) },
                 { GameId.Sq4, typeof(Sq4Annotator) },

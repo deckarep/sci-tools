@@ -2,11 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using SCI.Resource;
 
-// Three Mac games were compiled without object names:
+// Four Mac games were compiled without object names:
 //
 //   - Qfg1Vga
 //   - Lsl6 (SCI16, also known as floppy version or low-res version)
 //   - Hoyle4
+//   - Slater
 //
 // I have figured out almost all of the names from DOS versions.
 // This is the result of a lot of matching code that can thankfully
@@ -49,6 +50,11 @@ namespace SCI.Decompile.Mac
                     Classes = Hoyle4MacSymbols.Classes;
                     Instances = Hoyle4MacSymbols.Instances;
                 }
+                else if (IsSlaterMac(gameObject))
+                {
+                    Classes = SlaterMacSymbols.Classes;
+                    Instances = SlaterMacSymbols.Instances;
+                }
             }
         }
 
@@ -84,6 +90,22 @@ namespace SCI.Decompile.Mac
                 var script = gameObject.Script;
                 if (script.Exports.Count == 9 &&
                     script.Locals.Count == 750)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        static bool IsSlaterMac(Object gameObject)
+        {
+            if (gameObject.Name == null || gameObject.Name == "TheGame")
+            {
+                // signature is script 0 having 5 exports and 301 globals and 4 classes
+                var script = gameObject.Script;
+                if (script.Exports.Count == 5 &&
+                    script.Locals.Count == 301 &&
+                    script.Objects.Count(o => o.IsClass) == 4)
                 {
                     return true;
                 }
