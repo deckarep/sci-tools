@@ -42,7 +42,14 @@ namespace SCI.Annotators
                     VerbAnnotator.Run(Game, newFloppyVerbs, ArrayToDictionary(0, floppyItems));
                 }
 
-                Sq4DeathAnnotator.Run(Game, TextMessageFinder); // floppy only
+                if (isBeta)
+                {
+                    Sq4DeathAnnotator.RunBeta(Game, TextMessageFinder);
+                }
+                else
+                {
+                    Sq4DeathAnnotator.Run(Game, TextMessageFinder); // floppy only
+                }
             }
             else
             {

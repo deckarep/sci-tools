@@ -82,5 +82,38 @@ namespace SCI.Annotators
             }
             return deathMessages;
         }
+
+        public static void RunBeta(Game game, TextMessageFinder messageFinder)
+        {
+            string deathProc = game.GetExport(0, 10); // EgoDead
+            var defaultMessage = messageFinder.GetMessage(0, 25);
+
+            foreach (var node in game.Scripts.SelectMany(s => s.Root))
+            {
+                if (node.At(0).Text == deathProc)
+                {
+                    if (node.Children.Count == 1)
+                    {
+                        // (EgoDead)
+                        if (defaultMessage != null)
+                        {
+                            node.At(0).Annotate(defaultMessage.Text.QuoteMessageText());
+                        }
+                    }
+                    else if (node.At(1) is Integer &&
+                             node.At(2) is Integer)
+                    {
+                        // (EgoDead modNum textNum)
+                        int modNum = node.At(1).Number;
+                        int textNum = node.At(2).Number;
+                        var message = messageFinder.GetMessage(modNum, textNum);
+                        if (message != null)
+                        {
+                            node.At(0).Annotate(message.Text.QuoteMessageText());
+                        }
+                    }
+                }
+            }
+        }
     }
 }
