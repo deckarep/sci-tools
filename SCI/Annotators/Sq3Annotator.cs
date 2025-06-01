@@ -15,6 +15,8 @@ namespace SCI.Annotators
             InventoryAnnotator.Run(Game, items);
             Sci0InventoryAnnotator.Run(Game, items);
             RunLate();
+
+            Sq3DeathAnnotator.Run(Game);
         }
 
         static Dictionary<int, string> globals = new Dictionary<int, string>

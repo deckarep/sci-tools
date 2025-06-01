@@ -41,6 +41,8 @@ namespace SCI.Annotators
                     InventoryAnnotator.Run(Game, floppyItems);
                     VerbAnnotator.Run(Game, newFloppyVerbs, ArrayToDictionary(0, floppyItems));
                 }
+
+                Sq4DeathAnnotator.Run(Game, TextMessageFinder); // floppy only
             }
             else
             {

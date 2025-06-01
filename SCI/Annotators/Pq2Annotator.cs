@@ -14,6 +14,8 @@ namespace SCI.Annotators
             Sci0InventoryAnnotator.Run(Game, items);
             RunLate();
 
+            Pq2DeathAnnotator.Run(Game, TextMessageFinder);
+
             // i don't need this anymore, but this is how to detect it
             //bool isJapanese = Game.GetScript(0).Exports.ContainsKey(1);
         }
