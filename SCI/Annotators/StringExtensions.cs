@@ -46,5 +46,24 @@ namespace SCI.Annotators
             }
             return "";
         }
+
+        public static string SanitizeSymbol(this string text)
+        {
+            var sb = new StringBuilder();
+            foreach (var c in text)
+            {
+                if (('A' <= c && c <= 'Z') ||
+                    ('a' <= c && c <= 'z') ||
+                    ('0' <= c && c <= '9'))
+                {
+                    sb.Append(c);
+                }
+                else
+                {
+                    sb.Append('_');
+                }
+            }
+            return sb.ToString();
+        }
     }
 }

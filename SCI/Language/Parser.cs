@@ -129,16 +129,7 @@ namespace SCI.Language
             // string literals can be surrounded by { } or " " or ' '.
             // when initializing a property, quotes are used.
             // kSaid strings use single quotes
-            var result = new StringBuilder();
-            for (int i = 1; i < text.Length - 1; ++i)
-            {
-                if (text[i] == '\\')
-                {
-                    ++i;
-                }
-                result.Append(text[i]);
-            }
-            return result.ToString();
+            return text.Substring(1, text.Length - 2);
         }
 
         public static int ParseInteger(string text)

@@ -187,18 +187,12 @@ namespace SCI.Language
     }
 
     // Strings are string literals which depending on their context are surrounded
-    // by curly brackets or double quotes. they also have escaping rules. once
-    // parsed, i'm just tracking both the original escaped text and the text
-    // as i've unescaped it so that the original string is written back and so i
-    // can query/print the escaped string if i need to. this would be more complicated
-    // if i supported updating String text in the tree but i don't need that yet.
-    // i will need to do that eventually if i write a normalizer to strip foreign
-    // languages from multi-language strings for diffing. that's a special case,
-    // maybe i'll just add a dedicated method for that to this class.
+    // by curly brackets or double quotes. they also have escaping rules, but i am
+    // currently ignoring them and just trimming the surrounding brackets/quotes.
     public class String : Node
     {
-        string text;  // escaped
-        string value; // unescaped
+        string text;  // text with surrounding brackets/quotes
+        string value; // text without surrounding brackets/quotes
 
         public String(Node parent, string text, string value)
         {
@@ -210,11 +204,12 @@ namespace SCI.Language
         public override string Text { get { return text; } }
         public override object Value { get { return value; } }
 
-        // not thought out!! this is escaped text, i'm only using this
-        // now to strip out foreign language strings, leaving only english
+        // not thought out!! this is the untrimmed text, i'm using this
+        // to strip out foreign language strings, leaving only english.
         public void SetText(string text)
         {
             this.text = text;
+            this.value = text.Substring(1, text.Length - 2);
         }
 
         public override string ToString()

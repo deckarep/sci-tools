@@ -179,7 +179,7 @@ namespace SCI.Annotators
                 {
                     if (parent.At(i + 1) is Language.String)
                     {
-                        return parent.At(i + 1).Value.ToString();
+                        return parent.At(i + 1).Value.ToString().SanitizeSymbol();
                     }
                 }
             }
